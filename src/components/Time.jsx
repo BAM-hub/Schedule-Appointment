@@ -11,6 +11,7 @@ const Time = () => {
   const { activeIndex, schedule, selectedTime } = scheduleObj;
   const dispatch = useContext(ScheduleDispatchContext);
   const [timeList, setTimeList] = useState([]);
+  const [isTimeWitheinRange, setIsTimeWitheinRange] = useState(false);
 
   const format = (date) => {
     const parsedDate = new Date(date * 1000);
@@ -56,18 +57,28 @@ const Time = () => {
     }
     setTimeList(mergedTimes);
   };
+  // check if the time is withen the range of 1 day and 30 days
+  const isWithinRange = (currentDate, dateToCompare) => {
+    dateToCompare = new Date(dateToCompare * 1000);
+    let difference = dateToCompare - currentDate;
+    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    if (daysDifference < 0 || daysDifference > 30) {
+      return setIsTimeWitheinRange(false);
+    } else {
+      return setIsTimeWitheinRange(true);
+    }
+  };
   useEffect(() => {
     if (schedule.length > 0) {
       const { available, unavailable } = schedule[activeIndex];
       const availableTimes = available
-        .map(
-          (time) => {
-            const from = format(time.from_unix);
-            const to = format(time.to_unix);
-            return getHourList(from, to);
-          },
-          [scheduleObj]
-        )
+        .map((time) => {
+          const currentDate = new Date();
+          isWithinRange(currentDate, time.from_unix);
+          const from = format(time.from_unix);
+          const to = format(time.to_unix);
+          return getHourList(from, to);
+        })
         .flat();
       const unavailableTimes = unavailable
         .map((time) => {
@@ -102,7 +113,11 @@ const Time = () => {
                   key={i}
                   className={`time__card ${
                     available ? "" : "time__card__disabled"
-                  } ${selectedTime === time ? "time__card__selected" : ""}`}
+                  } ${
+                    selectedTime === time && !isTimeWitheinRange
+                      ? "time__card__selected"
+                      : ""
+                  }`}
                   onClick={() => {
                     if (available) {
                       dispatch({
