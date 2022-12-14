@@ -5,7 +5,7 @@ const useIsDayAvailable = (available) => {
   const isAvailable = (currentDate, dateToCompare) => {
     let difference = dateToCompare - currentDate;
     let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    if (daysDifference < 0) {
+    if (daysDifference < 1) {
       setCardState("date__card__disabled");
     } else {
       setCardState("date__card");
@@ -17,7 +17,7 @@ const useIsDayAvailable = (available) => {
       available[available.length - 1].to_unix * 1000
     );
     isAvailable(currentDate, dateToCompare);
-  }, []);
+  }, [available]);
   return { cardState, setCardState };
 };
 export default useIsDayAvailable;
