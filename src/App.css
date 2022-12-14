@@ -1,0 +1,172 @@
+:root {
+  --grey: #e1e1e1;
+  --blue: #4894fe;
+  --white: #ffffff;
+  --light-grey: #cfcfcf;
+  --bg-grey: #f5f5f5;
+  --black: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  line-height: 1.2em;
+}
+
+main {
+  background-color: var(--bg-grey);
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.schedule {
+  border: 1px solid var(--grey);
+  background-color: var(--white);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.schedule__header {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--grey);
+}
+
+.schedule__content {
+  font-size: 17px;
+  font-weight: 800;
+  padding: 1.1em 0;
+}
+
+.schedule__content__light {
+  font-size: 17px;
+  font-weight: 400;
+  padding: 1.1em 0;
+  opacity: 0.5;
+}
+
+.schedule__content__wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.schedule__date__picker__wrapper {
+  max-width: 95%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.date_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: max-content;
+  background-color: var(--white);
+  padding: 9px;
+  border-radius: 9px;
+  max-width: 4rem;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.161);
+  cursor: pointer;
+}
+
+.date_wrapper > * {
+  height: 90%;
+}
+
+.date__header__day,
+.date__content {
+  color: var(--black);
+  font-size: 14px;
+  padding: 0;
+}
+
+.time__card__selected {
+  background-color: var(--blue);
+  color: var(--white);
+  box-shadow: none !important;
+}
+
+.date__card__disabled,
+.time__card.time__card__disabled {
+  background-color: var(--white);
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+.date__card__active {
+  background-color: var(--blue);
+  box-shadow: none;
+}
+
+.date__card__active .schedule__content {
+  color: var(--white) !important;
+}
+
+.date__card__disabled .schedule__content,
+.time__card__disabled {
+  color: var(--light-grey) !important;
+}
+.date__card__disabled.date__card__active {
+  background-color: var(--white);
+}
+
+.time__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  padding-bottom: 1.1em;
+}
+
+.time__card {
+  font-size: 15px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.161);
+  width: max-content;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
+  padding-left: 1.3em;
+  padding-right: 1.3em;
+  border-radius: 10px;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.schedule__button {
+  font-size: 16px;
+  background-color: var(--blue);
+  color: var(--white);
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 1em 0;
+}
+
+/* swiper styles overrides */
+
+.swiper {
+  width: 90% !important;
+  padding: 5px !important;
+}
+.swiper-wrapper {
+  max-width: 20em;
+}
+
+/* this to is done to work with the lack of assets */
+.arrow__left {
+  rotate: 180deg;
+}
+
+.arrow__disabled {
+  opacity: 0.4;
+}
