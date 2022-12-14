@@ -1,8 +1,9 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import {
   ScheduleContext,
   ScheduleDispatchContext,
 } from "../context/ScheduleContext";
+import useIsDayAvailable from "../hooks/useIsDayAvailable";
 
 const DateCard = ({ index }) => {
   const { scheduleObj } = useContext(ScheduleContext);
@@ -12,23 +13,7 @@ const DateCard = ({ index }) => {
     availability: { date, day },
     available,
   } = schedule[index];
-  const [cardState, setCardState] = useState();
-  const isAvailable = (currentDate, dateToCompare) => {
-    let difference = dateToCompare - currentDate;
-    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    if (daysDifference < 0) {
-      setCardState("date__card__disabled");
-    } else {
-      setCardState("date__card");
-    }
-  };
-  useEffect(() => {
-    const currentDate = new Date();
-    const dateToCompare = new Date(
-      available[available.length - 1].to_unix * 1000
-    );
-    isAvailable(currentDate, dateToCompare);
-  }, []);
+  const { cardState } = useIsDayAvailable(available, date);
 
   const handleActiveIndex = (index) => {
     dispatch({ type: "SET_ACTIVE_INDEX", payload: index });
