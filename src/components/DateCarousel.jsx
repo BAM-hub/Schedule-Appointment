@@ -13,7 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 const DateCarousel = () => {
   const { scheduleObj } = useContext(ScheduleContext);
   const dispatch = useContext(ScheduleDispatchContext);
-  const { schedule, activeIndex, currentIndex } = scheduleObj;
+  const { schedule, activeIndex } = scheduleObj;
   const swiperRef = useRef(null);
   const pageCount = Math.ceil(schedule.length - 5);
   const onSlideChange = (activeIndex) => {
