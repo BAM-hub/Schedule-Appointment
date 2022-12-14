@@ -3,6 +3,8 @@ import {
   ScheduleContext,
   ScheduleDispatchContext,
 } from "../context/ScheduleContext";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Time = () => {
   const { scheduleObj } = useContext(ScheduleContext);
@@ -84,26 +86,37 @@ const Time = () => {
       </div>
       <div className='schedule__controls'>
         <div className='schedule__content__wrapper'>
-          <div className='time__wrapper'>
-            {timeList.map(({ time, available }, i) => (
-              <div
-                key={i}
-                className={`time__card ${
-                  available ? "" : "time__card__disabled"
-                } ${selectedTime === time ? "time__card__selected" : ""}`}
-                onClick={() => {
-                  if (available) {
-                    dispatch({
-                      type: "SET_SELECTED_TIME",
-                      payload: time,
-                    });
-                  }
-                }}
-              >
-                <p className='time__card__text'>{time}</p>
-              </div>
-            ))}
-          </div>
+          {timeList.length === 0 ? (
+            <Skeleton
+              count={1}
+              height={200}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+              }}
+            />
+          ) : (
+            <div className='time__wrapper'>
+              {timeList.map(({ time, available }, i) => (
+                <div
+                  key={i}
+                  className={`time__card ${
+                    available ? "" : "time__card__disabled"
+                  } ${selectedTime === time ? "time__card__selected" : ""}`}
+                  onClick={() => {
+                    if (available) {
+                      dispatch({
+                        type: "SET_SELECTED_TIME",
+                        payload: time,
+                      });
+                    }
+                  }}
+                >
+                  <p className='time__card__text'>{time}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>

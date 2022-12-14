@@ -58,7 +58,7 @@ main {
 }
 
 .schedule__date__picker__wrapper {
-  max-width: 95%;
+  /* max-width: 95%; */
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -169,4 +169,11 @@ main {
 
 .arrow__disabled {
   opacity: 0.4;
+}
+
+/* skelton styles */
+
+.horizantal__skeleton__wrapper span {
+  display: flex;
+  gap: 10px;
 }

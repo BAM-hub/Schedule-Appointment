@@ -7,6 +7,8 @@ import {
   ScheduleContext,
   ScheduleDispatchContext,
 } from "../context/ScheduleContext";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const DateCarousel = () => {
   const { scheduleObj } = useContext(ScheduleContext);
@@ -29,23 +31,29 @@ const DateCarousel = () => {
       >
         <Arrow />
       </div>
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={5}
-        pagination={{ clickable: true }}
-        onSlideChange={(swiper) => {
-          onSlideChange(swiper.activeIndex);
-        }}
-        onBeforeInit={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-      >
-        {schedule.map((date, i) => (
-          <SwiperSlide key={i}>
-            <DateCard index={i} activeIndex={activeIndex} date={date} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {schedule.length === 0 ? (
+        <div className='horizantal__skeleton__wrapper'>
+          <Skeleton count={5} height={50} width={50} />
+        </div>
+      ) : (
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={5}
+          pagination={{ clickable: true }}
+          onSlideChange={(swiper) => {
+            onSlideChange(swiper.activeIndex);
+          }}
+          onBeforeInit={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+        >
+          {schedule.map((date, i) => (
+            <SwiperSlide key={i}>
+              <DateCard index={i} activeIndex={activeIndex} date={date} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
       <div
         className={
           activeIndex === pageCount - 1
