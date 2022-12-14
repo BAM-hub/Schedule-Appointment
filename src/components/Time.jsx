@@ -39,7 +39,11 @@ const Time = () => {
                 <div
                   key={i}
                   className={`time__card ${
-                    available ? "" : "time__card__disabled"
+                    !isTimeWitheinRange
+                      ? "time__card__disabled"
+                      : available
+                      ? ""
+                      : "time__card__disabled"
                   } ${
                     selectedTime === time && isTimeWitheinRange
                       ? "time__card__selected"

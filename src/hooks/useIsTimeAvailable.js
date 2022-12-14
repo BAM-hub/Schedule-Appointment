@@ -53,7 +53,7 @@ const useIsDayAvailable = (activeIndex, scheduleObj) => {
     dateToCompare = new Date(dateToCompare * 1000);
     let difference = dateToCompare - currentDate;
     let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-    if (daysDifference < 0 || daysDifference > 30) {
+    if (daysDifference < 1 || daysDifference > 30) {
       return setIsTimeWitheinRange(false);
     } else {
       return setIsTimeWitheinRange(true);
